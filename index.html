@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,27 +28,10 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             transition: transform 0.3s ease;
-            cursor: pointer;
         }
 
         .course-card:hover {
             transform: translateY(-5px);
-        }
-
-        .course-card h5 {
-            font-weight: bold;
-        }
-
-        .course-card p {
-            color: #6c757d;
-        }
-
-        .course-card a {
-            transition: color 0.3s ease;
-        }
-
-        .course-card a:hover {
-            color: #0056b3;
         }
 
         .jumbotron {
@@ -73,254 +57,213 @@
             font-size: 24px;
         }
 
-        .typing-animation::after {
-            content: '|';
-            animation: blink 0.75s infinite alternate;
+        .course-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
         }
 
-        @keyframes blink {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+        .course-actions .btn {
+            padding: 5px;
+            font-size: 14px;
         }
     </style>
 </head>
-<body>
 
+<body>
     <div class="jumbotron animate__animated animate__fadeInDown">
         <h1 class="display-4">Gestión de cursos</h1>
-        <p class="lead">Aproechar el tiempo, universidad full estudio, horario de estudio(estudiar), en descanzo descanzar</p>
+        <p class="lead">Aprovecha el tiempo, universidad full estudio, horario de estudio, en descanso descansar</p>
     </div>
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card course-card animate__animated animate__fadeInUp" data-toggle="modal" data-target="#curso1Modal">
-                    <div class="card-body">
-                        <h5 class="card-title">Redes y conectividad 1</h5>
-                        <p class="card-text">Curso sobre álgebra, cálculo y geometría.</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#curso1Modal">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card course-card animate__animated animate__fadeInUp" data-toggle="modal" data-target="#curso2Modal">
-                    <div class="card-body">
-                        <h5 class="card-title">Curso 2: Gestion de base de datos</h5>
-                        <p class="card-text">Curso sobre mecánica, electromagnetismo y óptica.</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#curso2Modal">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card course-card animate__animated animate__fadeInUp" data-toggle="modal" data-target="#curso3Modal">
-                    <div class="card-body">
-                        <h5 class="card-title">Curso 3: Pensamiento Sistemico</h5>
-                        <p class="card-text">Curso sobre fundamentos de programación y algoritmos.</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#curso3Modal">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card course-card animate__animated animate__fadeInUp" data-toggle="modal" data-target="#curso4Modal">
-                    <div class="card-body">
-                        <h5 class="card-title">Curso 4: Ingenieria de Requisitos</h5>
-                        <p class="card-text">Curso sobre química general e inorgánica.</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#curso4Modal">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card course-card animate__animated animate__fadeInUp" data-toggle="modal" data-target="#curso5Modal">
-                    <div class="card-body">
-                        <h5 class="card-title">Curso 5: Matematica discreta</h5>
-                        <p class="card-text">Curso sobre biología celular y molecular.</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#curso5Modal">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
-         <!--
-            <div class="col-md-4">
-                <div class="card course-card animate__animated animate__fadeInUp" data-toggle="modal" data-target="#curso6Modal">
-                    <div class="card-body">
-                        <h5 class="card-title">Curso 6: Historia</h5>
-                        <p class="card-text">Curso sobre historia mundial y contemporánea.</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#curso6Modal">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card course-card animate__animated animate__fadeInUp" data-toggle="modal" data-target="#curso7Modal">
-                    <div class="card-body">
-                        <h5 class="card-title">Curso 7: Literatura</h5>
-                        <p class="card-text">Curso sobre literatura clásica y moderna.</p>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#curso7Modal">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
-         -->
-        </div>
+        <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#addCourseModal">Añadir Curso</button>
+        <div class="row" id="courseList"></div>
     </div>
 
-    <!-- Modales de cursos -->
-    <div class="modal fade" id="curso1Modal" tabindex="-1" role="dialog" aria-labelledby="curso1ModalLabel" aria-hidden="true">
+    <!-- Modal para añadir curso -->
+    <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="curso1ModalLabel">Redes y conectividad 1</h5>
+                    <h5 class="modal-title" id="addCourseModalLabel">Añadir Nuevo Curso</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Este curso cubre los fundamentos de redes y conectividad, incluyendo álgebra, cálculo y geometría aplicados.</p>
-                    <p>para mas detalles acceda al silabo <a href="https://www.dropbox.com/scl/fi/q0dmaor93b1mwkgin7lb1/2024-1_IS040305B-REDES-Y-CONECTIVIDAD-I-1.pdf?rlkey=5gx6yhhvfkvz3ydxpn7zsee78&st=20mi57vl&dl=0" target="_blank">Ver silabo</a>.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="https://www.notion.so/Redes-y-Conectividad-1-f246041d55c942ef887e52c9f2f742f9" target="_blank" class="btn btn-primary">Ver en Notion</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="curso2Modal" tabindex="-1" role="dialog" aria-labelledby="curso2ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="curso2ModalLabel">Curso 2: GBD</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Este curso abarca temas avanzados de física, incluyendo mecánica, electromagnetismo y óptica.</p>
-                    <p>para mas detalles acceda al silabo <a href="https://www.dropbox.com/home?preview=2024-1_IS040502A+GESTION+DE+BASE+DE+DATOS+(2).docx" target="_blank">Ver silabo</a>.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="https://www.notion.so/Gestion-de-Bases-de-Datos-a7f742f903504c3d90cfcb997bcd898a" target="_blank" class="btn btn-primary">Ver en Notion</a>
+                    <form id="addCourseForm">
+                        <div class="form-group">
+                            <label for="courseTitle">Título del Curso</label>
+                            <input type="text" class="form-control" id="courseTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseDescription">Descripción</label>
+                            <textarea class="form-control" id="courseDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseSyllabus">Enlace al Sílabus</label>
+                            <input type="url" class="form-control" id="courseSyllabus" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseNotion">Enlace en Notion</label>
+                            <input type="url" class="form-control" id="courseNotion" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Añadir Curso</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="curso3Modal" tabindex="-1" role="dialog" aria-labelledby="curso3ModalLabel" aria-hidden="true">
+    <!-- Modal para editar curso -->
+    <div class="modal fade" id="editCourseModal" tabindex="-1" role="dialog" aria-labelledby="editCourseModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="curso3ModalLabel">Curso 3: Programación</h5>
+                    <h5 class="modal-title" id="editCourseModalLabel">Editar Curso</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img src="https://i.ibb.co/64RgpFs/Untitled.png" class="img-fluid rounded" style="max-height: 400px;" alt="Imagen del curso">
-                    <p>Este curso cubre los fundamentos de la programación, incluyendo algoritmos y estructuras de datos.</p>
-                    <p>para mas detalles acceda al silabo <a href="https://www.dropbox.com/scl/fi/jrln88flyqttozod8kreo/2024-1_IS040202A-PENSAMIENTO-SISTEMICO-2.pdf?rlkey=4iwsml0g6psnx3x3yspscdzms&st=einlnbaw&dl=0" target="_blank">Ver silabo</a>.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="https://www.notion.so/Pensamiento-sistemico-37cff43be9a14e7c9dbe2330fb971ab7" target="_blank" class="btn btn-primary">Ver en Notion</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="curso4Modal" tabindex="-1" role="dialog" aria-labelledby="curso4ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="curso4ModalLabel">Curso 4: Química</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Este curso aborda los principios generales de la química y su aplicación en la vida cotidiana.</p>
-                    <p>Puedes acceder a más detalles y notas en <a href="https://notion.so/tu-enlace-quimica" target="_blank">Notion</a>.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="https://notion.so/tu-enlace-quimica" target="_blank" class="btn btn-primary">Ver en Notion</a>
+                    <form id="editCourseForm">
+                        <input type="hidden" id="editCourseId">
+                        <div class="form-group">
+                            <label for="editCourseTitle">Título del Curso</label>
+                            <input type="text" class="form-control" id="editCourseTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCourseDescription">Descripción</label>
+                            <textarea class="form-control" id="editCourseDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCourseSyllabus">Enlace al Sílabus</label>
+                            <input type="url" class="form-control" id="editCourseSyllabus" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCourseNotion">Enlace en Notion</label>
+                            <input type="url" class="form-control" id="editCourseNotion" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="curso5Modal" tabindex="-1" role="dialog" aria-labelledby="curso5ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="curso5ModalLabel">Curso 5: Biología</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    
-                </div>
-                <div class="modal-body">
-                    <p>Este curso se enfoca en la biología celular y molecular, explorando los fundamentos de la vida.</p>
-                    <p>para mas detalles acceda al silabo <a href="https://www.dropbox.com/scl/fi/7l7utkqon4q3sok0ujyp6/2024-1_IS040302-MATEMATICA-DISCRETA-2.docx?rlkey=duo3ds4mtzxu23f4a35w09gto&st=wc4umj4t&dl=0" target="_blank">Ver silabo</a>.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="https://notion.so/tu-enlace-biologia" target="_blank" class="btn btn-primary">Ver en Notion</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal fade" id="curso6Modal" tabindex="-1" role="dialog" aria-labelledby="curso6ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="curso6ModalLabel">Curso 6: Historia</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Este curso abarca la historia mundial y contemporánea, explorando eventos clave y sus repercusiones.</p>
-                    <p>Puedes acceder a más detalles y notas en <a href="https://notion.so/tu-enlace-historia" target="_blank">Notion</a>.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="https://notion.so/tu-enlace-historia" target="_blank" class="btn btn-primary">Ver en Notion</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="curso7Modal" tabindex="-1" role="dialog" aria-labelledby="curso7ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="curso7ModalLabel">Curso 7: Literatura</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Este curso aborda obras clásicas y modernas de la literatura, analizando su impacto cultural.</p>
-                    <p>Puedes acceder a más detalles y notas en <a href="https://notion.so/tu-enlace-literatura" target="_blank">Notion</a>.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="https://notion.so/tu-enlace-literatura" target="_blank" class="btn btn-primary">Ver en Notion</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <span>jmv</span>
-
+importar exportar /json/shet
     <!-- Bootstrap JS, Popper.js, jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Font Awesome JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const courseList = document.getElementById('courseList');
+
+            function getCourses() {
+                return JSON.parse(localStorage.getItem('courses') || '[]');
+            }
+
+            function saveCourses(courses) {
+                localStorage.setItem('courses', JSON.stringify(courses));
+            }
+
+            function renderCourses() {
+                courseList.innerHTML = '';
+                const courses = getCourses();
+                courses.forEach(addCourseToDOM);
+            }
+
+            function addCourseToDOM(course) {
+                const courseId = course.id;
+                const courseCardHTML = `
+                    <div class="col-md-4">
+                        <div class="card course-card animate__animated animate__fadeInUp" data-id="${courseId}">
+                            <div class="card-body">
+                                <h5 class="card-title">${course.title}</h5>
+                                <p class="card-text">${course.description}</p>
+                                <p><strong>Sílabus:</strong> <a href="${course.syllabusLink}" target="_blank">Ver sílabo</a></p>
+                                <p><strong>Notion:</strong> <a href="${course.notionLink}" target="_blank">Ver en Notion</a></p>
+                                <div class="course-actions">
+                                    <button class="btn btn-warning" onclick="editCourse('${courseId}')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger" onclick="deleteCourse('${courseId}')"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                courseList.insertAdjacentHTML('beforeend', courseCardHTML);
+            }
+
+            function handleCourseFormSubmit(event, isEdit = false) {
+                event.preventDefault();
+
+                const id = isEdit ? document.getElementById('editCourseId').value : Date.now().toString();
+                const course = {
+                    id,
+                    title: document.getElementById(isEdit ? 'editCourseTitle' : 'courseTitle').value,
+                    description: document.getElementById(isEdit ? 'editCourseDescription' : 'courseDescription').value,
+                    syllabusLink: document.getElementById(isEdit ? 'editCourseSyllabus' : 'courseSyllabus').value,
+                    notionLink: document.getElementById(isEdit ? 'editCourseNotion' : 'courseNotion').value
+                };
+
+                const courses = getCourses();
+
+                if (isEdit) {
+                    const index = courses.findIndex(c => c.id === id);
+                    if (index !== -1) {
+                        courses[index] = course;
+                    }
+                    $('#editCourseModal').modal('hide');
+                } else {
+                    courses.push(course);
+                    $('#addCourseModal').modal('hide');
+                    document.getElementById('addCourseForm').reset();
+                }
+
+                saveCourses(courses);
+                renderCourses();
+            }
+
+            document.getElementById('addCourseForm').addEventListener('submit', function (event) {
+                handleCourseFormSubmit(event);
+            });
+
+            window.editCourse = function (id) {
+                const courses = getCourses();
+                const course = courses.find(c => c.id === id);
+
+                if (course) {
+                    document.getElementById('editCourseId').value = id;
+                    document.getElementById('editCourseTitle').value = course.title;
+                    document.getElementById('editCourseDescription').value = course.description;
+                    document.getElementById('editCourseSyllabus').value = course.syllabusLink;
+                    document.getElementById('editCourseNotion').value = course.notionLink;
+
+                    $('#editCourseModal').modal('show');
+                }
+            };
+
+            window.deleteCourse = function (id) {
+                if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
+                    let courses = getCourses();
+                    courses = courses.filter(c => c.id !== id);
+                    saveCourses(courses);
+                    renderCourses();
+                }
+            };
+
+            document.getElementById('editCourseForm').addEventListener('submit', function (event) {
+                handleCourseFormSubmit(event, true);
+            });
+
+            renderCourses();
+        });
+    </script>
 </body>
+
 </html>
